@@ -9,7 +9,7 @@ import { sequelize } from "./db/database.js";
 import mypageRouter from "./router/mypage.js"
 import mapRouter from "./router/map.js"
 import { dataSave } from "./data/data.js"
-// import { restroomdataSave } from "./data/restroom.js"
+import { Like } from './data/user/like.js'
 const app = express();
 
 const corsOption = {

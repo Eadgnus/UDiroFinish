@@ -49,6 +49,7 @@ header {
 
 header>div>img {
     width: 130px;
+    cursor: pointer;
 }
 
 /* 헤더 메뉴부분 전체 */
@@ -61,11 +62,15 @@ header>div>img {
     font-weight: 700;
 }
 
+.login__signUp {
+    cursor: pointer;
+}
 
 
 /* 헤더의 메뉴 리스트 */
 header>ul>li {
     margin-right: 10%;
+    cursor: pointer;
 }
 
 /* 로그인 회원가입 */
@@ -142,4 +147,18 @@ header>ul>li {
 
 .noshow {
     display: none !important;
+}
+
+
+/* 마우스 포인터 모양 */
+ul>li {
+    cursor: pointer;
+}
+
+.sidebar__bigMenu {
+    cursor: default !important;
+}
+
+button {
+    cursor: pointer;
 }

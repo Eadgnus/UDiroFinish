@@ -6,24 +6,30 @@ export async function getFestasandPlace(req, res) {
     const purpose = req.query.purpose;
     const input = req.query.input;
     let data;
+    let data1;
+    let data2;
+    console.log(category, purpose, input)
 
     if (category && purpose && input) {
         switch (category) {
             case 'all':
                 switch (purpose) {
                     case 'guname':
-                        data = await festaRepository.getSearchByguname(input);
-                        data = await placeRepository.getSearchByguname(input);
+                        data1 = await festaRepository.getSearchByguname(input);
+                        data2 = await placeRepository.getSearchByAddr(input);
+                        data = [data1, data2]
                         break;
 
                     case 'title':
-                        data = await festaRepository.getSearchByTitle(input);
-                        data = await placeRepository.getSearchByTitle(input);
+                        data1 = await festaRepository.getSearchByTitle(input);
+                        data2 = await placeRepository.getSearchByTitle(input);
+                        data = [data1, data2]
                         break;
 
                     case 'program':
-                        data = await festaRepository.getSearchByprogram(input);
-                        data = await placeRepository.getSearchByprogram(input);
+                        data1 = await festaRepository.getSearchByprogram(input);
+                        data2 = await placeRepository.getSearchByDesc(input);
+                        data = [data1, data2]
                         break;
 
                     default:
@@ -53,15 +59,15 @@ export async function getFestasandPlace(req, res) {
             case 'place':
                 switch (purpose) {
                     case 'guname':
-                        data = await placeRepository.getSearchByguname(input);
+                        data2 = await placeRepository.getSearchByAddr(input);
                         break;
 
                     case 'title':
-                        data = await placeRepository.getSearchByTitle(input);
+                        data2 = await placeRepository.getSearchByTitle(input);
                         break;
 
                     case 'program':
-                        data = await placeRepository.getSearchByprogram(input);
+                        data2 = await placeRepository.getSearchByDesc(input);
                         break;
 
                     default:
@@ -74,7 +80,7 @@ export async function getFestasandPlace(req, res) {
         }
     } else {
         data = await festaRepository.getAll();
-        data = await placeRepository.getAll();
+        data2 = await placeRepository.getAll();
     }
 
     res.status(200).json(data);

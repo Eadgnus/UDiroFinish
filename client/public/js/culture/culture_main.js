@@ -42,8 +42,9 @@ function fetchDataPlace(placenum) {
 }
 
 // 함수-----------------------------------------
+// 데이터 처리
 async function processDataAllf(data, festanum) {
-    // 데이터 처리
+    // const data = data.data
     const festivalsContainer = document.querySelector('.festival__container');
 
     // festival 요소 생성
@@ -92,6 +93,7 @@ async function processDataAllf(data, festanum) {
     await dateElement.appendChild(dateRangeSpan);
 }
 
+/**데이터를 블러왔을때 각각 나눠서 뿌려주는 함수 */
 async function processDataAll(data, placenum) {
     // 데이터 처리
     const placesContainer = document.querySelector('.place__container');
@@ -135,6 +137,12 @@ function search() {
     const purpose = document.getElementById('purpose').value;
     const input = document.getElementById('inputField').value;
 
+    const festaContainer = document.querySelector('.festival__container');
+    festaContainer.innerHTML = '';
+
+    const placeContainer = document.querySelector('.place__container');
+    placeContainer.innerHTML = '';
+
     fetch(
         `https://port-0-udiroserver-7e6o2cli3ac97a.sel4.cloudtype.app/culture/main?category=${category}&purpose=${purpose}&input=${input}`,
         {
@@ -147,10 +155,25 @@ function search() {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            processDataAllf(data, festanum);
-            processDataAll(data, placenum);
+            data[0].forEach((festa, festanum) => {
+                processDataAllf(festa, festanum);
+            });
+            data[1].forEach((place, placenum) => {
+                processDataAll(place, placenum);
+            });
+            // processDataAllf(data, data.festa_Num);
+            // processDataAll(data, data.place_Num);
         })
         .catch((error) => {
             console.error('ERROR', error);
         });
 }
+
+const category = document.querySelector('#category')
+category.addEventListener('change', () => {
+    if (category.value == 'festa') {
+        window.location.href = '/culture/festa'
+    } else if (category.value == 'place') {
+        window.location.href = '/culture/place'
+    }
+})

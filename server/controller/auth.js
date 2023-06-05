@@ -152,6 +152,7 @@ export async function findPw(req, res, next) {
     return res.status(200).json({ message });
 }
 export async function me(req, res, next) {
+    console.log(req.user_idx)
     const user = await (userRepository.searchByIdx(req.user_idx));
     if (!user) {
         return res.status(404).json({ message: "사용자가 존재하지 않습니다." })

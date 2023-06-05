@@ -22,7 +22,7 @@ function sendit() {
     const expHp = /^01[0|1|6|7|8|9]-\d{3,4}-\d{4}$/;
 
     // 이메일 정규 표현식 과제
-    const expEmail = /^[A-Za-z0-9\-\.]+@[A-Za-z0-9\-\.]+\.[A-Za-z0-9\-\.]+$/;
+    const expEmail = /^[A-Za-z0-9\-_\.]+@[A-Za-z0-9\-\.]+\.[A-Za-z0-9\-\.]+$/;
 
     if (!expIdText.test(user_id)) {
         alert("아이디는 4자 이상 20자 이하의 영문자, 숫자로 입력하세요");

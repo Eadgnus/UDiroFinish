@@ -1,74 +1,56 @@
 import SQ from "sequelize";
 import { sequelize } from "../../db/database.js";
-const DataTypes = SQ.DataTypes;
+import { User } from './user.js'
+import { culture_place } from '../culture/place.js'
+import { culture_festa } from '../culture/festa.js'
 
+const DataTypes = SQ.DataTypes;
 // 기존의 테이블이 없으면 테이블을 생성하고, 있으면 생성하지 않음
 // 뒤에 s가 붙음
-export const User = sequelize.define(
-    "user",
+export const Like = sequelize.define(
+    'like',
     {
         // 인덱스
-        user_idx: {
+        like_idx: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             allowNull: false,
             primaryKey: true
         },
-        // 이름
-        user_name: {
-            type: DataTypes.STRING(128),
-            allowNull: false
-        },
         // 아이디
         user_id: {
-            type: DataTypes.STRING(128),
+            type: DataTypes.TEXT,
             allowNull: false,
-            unique: true
         },
-        // 비밀번호
-        user_pw: {
-            type: DataTypes.STRING(128),
-            allowNull: false
+        // festa
+        festa_num: {
+            type: DataTypes.TEXT,
+            allowNull: true
         },
-        // 이메일
-        user_email: {
-            type: DataTypes.STRING(128),
-            allowNull: false
-        },
-        // 핸드폰번호
-        user_phone: {
-            type: DataTypes.STRING(128),
-            allowNull: false
-        },
-        // 자주가는 장소
-        user_area: {
-            type: DataTypes.STRING(128)
-        },
-        // 회원 스테이터스
-        user_status: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            defaultValue: 0
+        // place
+        place_num: {
+            type: DataTypes.TEXT,
+            allowNull: true
         },
     },
-    { timestamps: false } // true면 createdAt, updatedAt 컬럼이 자동으로 생김
+    { timestamps: true }, // true면 createdAt, updatedAt 컬럼이 자동으로 생김
 );
 
-await sequelize.sync();
-// user_idx user_name user_id user_pw user_email user_phone user_area
+Like.sync({ force: false })
+    .then(() => {
+        console.log('Like 모델과 연결된 데이터베이스 테이블이 성공적으로 생성되었습니다.');
+    })
+    .catch((error) => {
+        console.error('Like 모델과 연결된 데이터베이스 테이블 생성 중 에러 발생: ', error);
+    });
 
-export async function createUser(user) {
-    return User.create(user).then((data) => data.dataValues.user_idx);
+
+export async function createLike(element) {
+    return Like.create(element).then((data) => data);
 }
 
 export async function searchById(user_id) {
-    const user = await User.findOne({ where: { user_id: user_id } });
-    try {
-        return user
-    } catch (e) {
-        console.log('이미 삭제되었거나 존재하지 않는 회원입니다.', e)
-    }
-    // user아이디 넘어오는것 확인
+    return Like.findOne({ where: { user_id: user_id } });
 }
 
 export async function searchByIdx(user_idx) {

@@ -11,6 +11,7 @@ const token = localStorage.getItem('token');
 async function getAccount() {
     if (token === null) {
         alert('로그인 후 이용해주세요.')
+        window.localStorage.clear('token')
         return window.location.href = '/'
     }
     try {

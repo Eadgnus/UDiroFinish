@@ -104,3 +104,11 @@ body {
 .active {
     display: flex;
 }
+
+.see__more {
+    cursor: pointer;
+}
+
+#sidebar__bigMenu {
+    cursor: default !important;
+}

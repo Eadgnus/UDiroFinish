@@ -10,7 +10,6 @@ const header__menu__culture = document.querySelector('#header__menu__culture')
 
 
 
-
 const token2 = window.localStorage.getItem('token');
 // 토큰이 있다면 바꿔주기
 if (token2) {
@@ -18,6 +17,8 @@ if (token2) {
     signUp2.classList.add('noshow')
     mypage2.classList.remove('noshow')
     logout2.classList.remove('noshow')
+} else {
+    window.localStorage.clear('token')
 }
 
 // 로그아웃
